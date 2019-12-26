@@ -20,11 +20,12 @@
         :output-dir "public/js"
         :asset-path "/js"
         :modules    {:main {:entries [flightcubs.filidomus.core]}}
+        :module-hash-names true
+        :build-options {:manifest-name "manifest.json"}
         :dev        {:compiler-options {:closure-defines {re_frame.trace.trace_enabled?        true
                                                           day8.re-frame.tracing.trace-enabled? true}}}
         :release    {:compiler-options {:optimizations :simple} :output-dir "dist/js" :asset-path "/js"}
         :devtools   {:after-load funnel.customs-frontend.core/mount-app
                      :preloads   [devtools.preload
                                   day8.re-frame-10x.preload]}}}
-
  }

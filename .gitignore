@@ -1,0 +1,17 @@
+node_modules/
+public/js
+/dist
+
+pom.xml
+*.iml
+*.jar
+*.log
+.shadow-cljs
+.idea
+.lein-*
+.nrepl-*
+.DS_Store
+
+.hgignore
+.hg/
+

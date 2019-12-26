@@ -16,10 +16,13 @@ MAKEFLAGS += --no-builtin-rules
 
 clean:
 	rm -rf node_modules
-	rm -rf dist
 	rm -rf .shadow-cljs
 	rm -rf .nrepl-port
 .PHONY: clean
+
+setup:
+	yarn install
+.PHONY: setup
 
 serve:
 	npx shadow-cljs watch app
@@ -31,11 +34,6 @@ serve:
 
 .PHONY: build dist build-report stage-install install
 
-build:
-	@rm -rf dist/*
+release: setup
 	npx shadow-cljs release app
-.PHONY: build
-
-dist: build
-	./scripts/create_versioned_html.sh
-.PHONY: dist
+.PHONY: release

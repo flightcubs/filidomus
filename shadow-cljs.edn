@@ -16,16 +16,17 @@
  {8080 "public"}
 
  :builds
- {:app {:target     :browser
-        :output-dir "public/js"
-        :asset-path "/js"
-        :modules    {:main {:entries [flightcubs.filidomus.core]}}
-        :module-hash-names true
+ {:app {:target        :browser
+        :output-dir    "public/assets/js"
+        :asset-path    "/assets/js"
+        :modules       {:main {:entries [flightcubs.filidomus.core]}}
         :build-options {:manifest-name "manifest.json"}
-        :dev        {:compiler-options {:closure-defines {re_frame.trace.trace_enabled?        true
-                                                          day8.re-frame.tracing.trace-enabled? true}}}
-        :release    {:compiler-options {:optimizations :simple} :output-dir "dist/js" :asset-path "/js"}
-        :devtools   {:after-load flightcubs.filidomus.core/mount-app
-                     :preloads   [devtools.preload
-                                  day8.re-frame-10x.preload]}}}
+        :dev           {:compiler-options {:closure-defines {re_frame.trace.trace_enabled?        true
+                                                             day8.re-frame.tracing.trace-enabled? true}}}
+        :release       {:compiler-options {:optimizations :simple}
+                        :output-dir       "public/assets/js"
+                        :asset-path       "/assets/js"}
+        :devtools      {:after-load flightcubs.filidomus.core/mount-app
+                        :preloads   [devtools.preload
+                                     day8.re-frame-10x.preload]}}}
  }

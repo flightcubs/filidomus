@@ -10,7 +10,19 @@
     {:name      ::home
      :view      views/home-page
      :link-text "Home"}
-    ]])
+    ]
+   ["blog"
+    [""
+     {:name      ::blog
+      :view      views/blog
+      :link-text "Home"}]
+    ["/post/:slug"
+     {:name      ::blog-post
+      :view      views/blog-post
+      :link-text "Home"}
+     ]
+    ]
+   ])
 
 (def router
   (reitit-frontend/router routes))

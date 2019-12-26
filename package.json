@@ -7,6 +7,7 @@
     "highlight.js": "9.15.10",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "react-highlight.js": "1.0.7"
+    "react-highlight.js": "1.0.7",
+    "react-markdown": "^4.2.2"
   }
 }

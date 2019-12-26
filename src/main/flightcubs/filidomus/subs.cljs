@@ -5,3 +5,9 @@
   :current-route
   (fn [db]
     (:current-route db)))
+
+(rf/reg-sub
+  :path-params
+  :<- [:current-route]
+  (fn [current-route]
+    (:path-params current-route)))

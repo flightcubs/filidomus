@@ -7,12 +7,16 @@
             [reagent.core :as reagent]
             [re-frame.core :as rf]))
 
+(def dom-root (js/document.getElementById "app"))
+
 (defn mount-app []
-  (reagent/render [views/main-view] (.getElementById js/document "app")))
+  (.log js/console "mounting app")
+  (rf/clear-subscription-cache!)
+  (router/start!)
+  (reagent/render [views/main-view] dom-root))
 
 (defn ^:export init
   "Initializes the app. Called from index.html with init()"
   []
-  (router/start!)
   (rf/dispatch-sync [:initialize-db])
   (mount-app))

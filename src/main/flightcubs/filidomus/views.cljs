@@ -8,7 +8,9 @@
 
 (defn home-page []
   [:div
-   [:h1 "Hello world!"]])
+   [:h1 "Hello!"]
+   [:p "It's empty here..."]
+   [:a {:href "#/blog"} "Go to the blog"]])
 
 (def posts
   {:hello-blog      {:name     "Hello blog!"

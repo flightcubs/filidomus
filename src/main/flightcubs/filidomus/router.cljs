@@ -1,6 +1,7 @@
 (ns flightcubs.filidomus.router
-  (:require [flightcubs.filidomus.views :as views]
-            [flightcubs.filidomus.utils :refer [<sub >evt]]
+  (:require [flightcubs.filidomus.utils :refer [<sub >evt]]
+            [flightcubs.filidomus.views :as views]
+            [reitit.core :as reitit]
             [reitit.frontend :as reitit-frontend]
             [reitit.frontend.easy :as reitit-frontend-easy]))
 
@@ -39,3 +40,14 @@
 
 (defn push-state! [route]
   (apply reitit-frontend-easy/push-state route))
+
+(defn url-from-name [name]
+  (:path (reitit/match-by-path router name)))
+
+(defn path-by-name
+  ([name]
+   (path-by-name name {}))
+  ([name path-params]
+   (-> router
+       (reitit/match-by-name name path-params)
+       :path)))

@@ -23,3 +23,13 @@
   :navigated
   (fn [db [_ new-match]]
     (assoc db :current-route new-match)))
+
+(rf/reg-event-db
+  :toggle-menu
+  (fn [db [_ _]]
+    (assoc db :menu-expanded (not (:menu-expanded db)))))
+
+(rf/reg-event-db
+  :toggle-menu-to
+  (fn [db [_ bool]]
+    (assoc db :menu-expanded bool)))

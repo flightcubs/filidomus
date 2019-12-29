@@ -11,3 +11,8 @@
   :<- [:current-route]
   (fn [current-route]
     (:path-params current-route)))
+
+(rf/reg-sub
+  :menu-expanded
+  (fn [db]
+    (:menu-expanded db)))

@@ -44,7 +44,7 @@
     [contact-at logo-linkedin "https://linkedin.com/in/filiphedberg/" "linkedin.com/in/filiphedberg"]
     [contact-at logo-github "https://github.com/flightcubs" "github.com/flightcubs"]
     [contact-at logo-email "mailto:flightcubs@gmail.com" "flightcubs@gmail.com"]
-    [contact-at logo-linkedin "https://twitter.com/flightcubs" "@flightcubs"]]
+    [contact-at logo-twitter "https://twitter.com/flightcubs" "@flightcubs"]]
    ])
 
 (def posts

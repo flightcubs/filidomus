@@ -38,7 +38,7 @@
 (defn home-page []
   [:div.container.max-w-xl.m-6.mt-16.text-primary.leading-tight
    [:h1.font-sans.text-5xl "Hi! 👋"]
-   [:p.font-sans.text-3xl.mt-4 "I’m Filip. A software engineer, designer and product person based in Stockholm."]
+   [:p.font-sans.text-3xl.mt-4 "I’m Filip - A software engineer, designer and product person based in Stockholm."]
    [:p.font-sans.text-lg.mt-4 "Read my " [:a {:href "/#/blog"} "blog"] ", explore the " [:a {:href github-repo} "source code"] " of this website or find me at:"]
    [:div.mt-4
     [contact-at logo-linkedin "https://linkedin.com/in/filiphedberg/" "linkedin.com/in/filiphedberg"]

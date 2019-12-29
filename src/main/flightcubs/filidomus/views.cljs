@@ -36,8 +36,8 @@
    ])
 
 (defn home-page []
-  [:div.container.max-w-xl.m-6.mt-16.text-primary.leading-tight
-   [:h1.font-sans.text-5xl "Hi! 👋"]
+  [:div.container.max-w-xl.m-6.text-primary.leading-tight
+   [:h1.font-sans.text-5xl.mt-12 "Hi! 👋"]
    [:p.font-sans.text-3xl.mt-4 "I’m Filip - A software engineer, designer and product person based in Stockholm."]
    [:p.font-sans.text-lg.mt-4 "Read my " [:a {:href "/#/blog"} "blog"] ", explore the " [:a {:href github-repo} "source code"] " of this website or find me at:"]
    [:div.mt-4
@@ -50,14 +50,14 @@
 (def posts
   {:hello-blog      {:name     "Hello blog!"
                      :subtitle "Everything starts with a purpose"
-                     :date     "2019-12-27"
+                     :date     "2119-12-27"
                      :markdown (rc/inline "./posts/test.md")}
    :building-a-blog {:name     "Building this blog"
-                     :date     "2019-12-29"
+                     :date     "2119-12-29"
                      :markdown (rc/inline "./posts/test.md")}
-   :first-post      {:name     "Hello, blog!"
+   :first-post      {:name     "Hello, World!"
                      :date     "2019-11-29"
-                     :markdown (rc/inline "./posts/hello.md")}
+                     :markdown (rc/inline "./posts/hello-world.md")}
    })
 
 (defn posts-by-date [posts]
@@ -75,14 +75,15 @@
 
 (defn blog []
   [:div
-   [:h1.font-sans.text-3xl.mt-4 "Blog"]
+   [:h1.font-sans.text-3xl "Blog"]
    (for [[slug post] (->> posts posts-by-date (filter show-post))]
      [:div
       [blog-post-link slug post]])])
 
 (defn blog-post []
-  (let [content (->> (<sub [:path-params]) :slug keyword (get posts) :markdown)]
-    [:div.markdown.max-w-4xl
+  (let [post (->> (<sub [:path-params]) :slug keyword (get posts)) content (:markdown post) date (:date post)]
+    [:div.markdown.max-w-2xl.mx-auto
+     [:p.font-mono.text-primary.opacity-50 date]
      [:> react-markdown content]]))
 
 (defn header-icon []
@@ -112,7 +113,7 @@
     [:a.block.mt-4.mb-4.md:mb-0.md:inline-block.md:mt-0.text-primary.hover:text-accent.no-underline {:href "/#/blog" :on-click minimize-menu} "Blog"]]])
 
 (defn header []
-  [:nav.max.w-full.bg-white.border-b.border-gray-200.flex.justify-between
+  [:nav.max.w-full.bg-white.border-b.border-gray-200.flex.justify-between.fixed.z-10.top-0
    [:div.w-full.flex.items-center.justify-between.flex-wrap.flex-shrink-0.pl-4.pr-4
     [header-icon]
     [header-menu-btn]
@@ -122,7 +123,7 @@
   (let [current-route (<sub [:current-route])]
     [:div
      [header]
-     [:div.w-full.mx-auto.px-6
+     [:div.w-full.mx-auto.px-6.pt-20
       (when current-route
         [(-> current-route :data :view)])]
      ]))

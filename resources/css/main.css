@@ -1,0 +1,74 @@
+@tailwind base;
+
+html {
+  @apply bg-white antialiased;
+}
+
+body {
+  @apply text-gray-900 leading-normal;
+}
+
+a {
+  @apply text-accent underline;
+}
+
+
+.markdown {
+  @apply text-primary;
+
+  & > * + * {
+    @apply mt-6;
+  }
+
+  & p {
+    @apply font-serif;
+  }
+
+  & h1, & h2, & h3, & h4, & h5 {
+    @apply font-sans;
+  }
+
+  & h1 {
+    @apply text-3xl;
+  }
+
+  & h2 {
+    @apply text-2xl;
+  }
+
+  & h3 {
+    @apply text-xl;
+  }
+
+  & a {
+    @apply text-accent underline
+  }
+
+  & ul {
+    @apply list-disc pl-6;
+
+    & li + li {
+      @apply mt-2;
+    }
+  }
+
+  & blockquote {
+    @apply mt-6;
+    position: relative;
+    font-style: italic;
+    @apply text-accent text-3xl;
+     & :before {
+          content: '\201C';
+          position: absolute;
+          top: 0.25em;
+          left: -0.15em;
+          font-size: 8em;
+          z-index: -1;
+          @apply text-primary opacity-25;
+       }
+  }
+}
+
+@tailwind components;
+
+@tailwind utilities;

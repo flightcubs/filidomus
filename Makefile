@@ -13,16 +13,28 @@ CSS_FILES  := $(shell find resources/css -type f)
 TARGET_CSS := $(BUILD_DIR)/css/main.css
 TARGET_CSS_DEV := resources/public/css/main.css
 TARGET_JS  := $(BUILD_DIR)/js/main.js
+TARGET_HTML  := $(BUILD_DIR)/index.html
 
 default: build
 
-css: $(TARGET_CSS_DEV)
-cssp: $(TARGET_CSS)
+.PHONY: clean setup serve watch
 
-build: $(TARGET_JS) $(TARGET_CSS) index.html
+clean:
+	rm -rf node_modules
+	rm -rf .shadow-cljs
+	rm -rf .nrepl-port
+	rm -rf build
+
+setup:
+	yarn install
+
+serve:
+	npx shadow-cljs watch app
 
 watch: $(TARGET_CSS_DEV)
 	npx chokidar $(CSS_FILES) -c "make css"
+
+build: setup $(TARGET_JS) $(TARGET_CSS) $(TARGET_HTML)
 
 $(TARGET_JS): $(SRC_FILES)
 	@echo "---- Building cljs"
@@ -35,22 +47,5 @@ $(TARGET_CSS): $(CSS_FILES) $(SRC_FILES)
 $(TARGET_CSS_DEV): $(CSS_FILES)
 	npx postcss $< -o $@
 
-clean:
-	rm -rf node_modules
-	rm -rf .shadow-cljs
-	rm -rf .nrepl-port
-.PHONY: clean
-
-setup:
-	yarn install
-.PHONY: setup
-
-serve:
-	npx shadow-cljs watch app
-.PHONY: serve
-
-.PHONY: build dist build-report stage-install install
-
-release: setup
-	npx shadow-cljs release app
-.PHONY: release
+$(TARGET_HTML): resources/public/index.html
+	cp $^ $@

@@ -82,7 +82,7 @@
 
 (defn blog-post []
   (let [post (->> (<sub [:path-params]) :slug keyword (get posts)) content (:markdown post) date (:date post)]
-    [:div.markdown.max-w-2xl.mx-auto
+    [:div.markdown.max-w-2xl.mx-auto.mb-24
      [:p.font-mono.text-primary.opacity-50 date]
      [:> react-markdown content]]))
 

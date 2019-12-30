@@ -1,11 +1,10 @@
-(ns flightcubs.filidomus.views
-  (:require [flightcubs.filidomus.utils :refer [<sub >evt]]
+(ns flightcubs.refilip.views
+  (:require [flightcubs.refilip.utils :refer [<sub >evt]]
             [shadow.resource :as rc]
             ["react-markdown/with-html" :as react-markdown]))
 
-(def md-test "# This is a header\n\nAnd this is a paragraph")
 (def media-folder "/media")
-(def github-repo "https://github.com/flightcubs/filidomus")
+(def github-repo "https://github.com/flightcubs/refilip")
 
 (defn logo-linkedin []
   [:svg.fill-current {:width "24" :height "24" :viewBox "0 0 24 24" :fill "none" :xmlns "http://www.w3.org/2000/svg"}
@@ -48,16 +47,12 @@
    ])
 
 (def posts
-  {:hello-blog      {:name     "Hello blog!"
-                     :subtitle "Everything starts with a purpose"
-                     :date     "2119-12-27"
-                     :markdown (rc/inline "./posts/test.md")}
-   :building-a-blog {:name     "Building this blog"
-                     :date     "2119-12-29"
-                     :markdown (rc/inline "./posts/test.md")}
-   :first-post      {:name     "Hello, World!"
-                     :date     "2019-11-29"
-                     :markdown (rc/inline "./posts/hello-world.md")}
+  {:test-markdown {:name     "Markdown test"
+                   :date     "2119-12-29"
+                   :markdown (rc/inline "./posts/test-markdown.md")}
+   :hello-world   {:name     "Hello, World!"
+                   :date     "2019-11-29"
+                   :markdown (rc/inline "./posts/hello-world.md")}
    })
 
 (defn posts-by-date [posts]

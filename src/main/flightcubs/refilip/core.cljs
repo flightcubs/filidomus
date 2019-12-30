@@ -1,9 +1,9 @@
-(ns flightcubs.filidomus.core
-  (:require [flightcubs.filidomus.views :as views]
-            [flightcubs.filidomus.events :as events]
-            [flightcubs.filidomus.subs :as subs]
-            [flightcubs.filidomus.utils :as utils]
-            [flightcubs.filidomus.router :as router]
+(ns flightcubs.refilip.core
+  (:require [flightcubs.refilip.views :as views]
+            [flightcubs.refilip.events :as events]
+            [flightcubs.refilip.subs :as subs]
+            [flightcubs.refilip.utils :as utils]
+            [flightcubs.refilip.router :as router]
             [reagent.core :as reagent]
             [re-frame.core :as rf]))
 

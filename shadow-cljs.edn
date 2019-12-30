@@ -19,9 +19,9 @@
  :builds
  {:app {:target        :browser
         :output-dir    "resources/public/js"
-        :modules       {:main {:entries [flightcubs.filidomus.core]}}
+        :modules       {:main {:entries [flightcubs.refilip.core]}}
         :build-options {:manifest-name "manifest.json"}
-        :devtools      {:after-load flightcubs.filidomus.core/mount-app
+        :devtools      {:after-load flightcubs.refilip.core/mount-app
                         :preloads   [devtools.preload
                                      day8.re-frame-10x.preload]}
         :dev           {:compiler-options {:closure-defines {re_frame.trace.trace_enabled?        true

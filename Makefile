@@ -14,6 +14,7 @@ TARGET_CSS := $(BUILD_DIR)/css/main.css
 TARGET_CSS_DEV := resources/public/css/main.css
 TARGET_JS  := $(BUILD_DIR)/js/main.js
 TARGET_HTML  := $(BUILD_DIR)/index.html
+TARGET_ANALYTICS  := $(BUILD_DIR)/js/autotrack.js
 
 default: build
 
@@ -34,7 +35,7 @@ serve:
 watch: $(TARGET_CSS_DEV)
 	npx chokidar $(CSS_FILES) -c "make css"
 
-build: setup $(TARGET_JS) $(TARGET_CSS) $(TARGET_HTML)
+build: setup $(TARGET_JS) $(TARGET_CSS) $(TARGET_HTML) $(TARGET_ANALYTICS)
 
 $(TARGET_JS): $(SRC_FILES)
 	@echo "---- Building cljs"
@@ -48,4 +49,7 @@ $(TARGET_CSS_DEV): $(CSS_FILES)
 	npx postcss $< -o $@
 
 $(TARGET_HTML): resources/public/index.html
+	cat $^ | sed 's|autotrack.js|js/autotrack.js|'  > $@
+
+$(TARGET_ANALYTICS): resources/public/autotrack.js
 	cp $^ $@

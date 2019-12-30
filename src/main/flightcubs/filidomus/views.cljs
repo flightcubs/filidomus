@@ -77,7 +77,7 @@
   [:div
    [:h1.font-sans.text-3xl "Blog"]
    (for [[slug post] (->> posts posts-by-date (filter show-post))]
-     [:div
+     [:div {:key slug}
       [blog-post-link slug post]])])
 
 (defn blog-post []

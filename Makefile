@@ -33,7 +33,7 @@ serve:
 	npx shadow-cljs watch app
 
 watch: $(TARGET_CSS_DEV)
-	npx chokidar $(CSS_FILES) -c "make css"
+	npx chokidar $(CSS_FILES) -c "make $(TARGET_CSS_DEV)"
 
 build: setup $(TARGET_JS) $(TARGET_CSS) $(TARGET_HTML) $(TARGET_ANALYTICS)
 

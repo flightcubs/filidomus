@@ -1,8 +1,4 @@
-######################################################
-## Defaults
-######################################################
 # Make defaults from https://tech.davis-hansson.com/p/make/
-
 SHELL := bash
 .ONESHELL:
 .SHELLFLAGS := -eu -o pipefail -c
@@ -10,30 +6,50 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-######################################################
-## Running & developing
-######################################################
+BUILD_DIR  := build
+
+SRC_FILES  := $(shell find src -type f)
+CSS_FILES  := $(shell find resources/css -type f)
+TARGET_CSS := $(BUILD_DIR)/css/main.css
+TARGET_CSS_DEV := resources/public/css/main.css
+TARGET_JS  := $(BUILD_DIR)/js/main.js
+TARGET_HTML  := $(BUILD_DIR)/index.html
+TARGET_ANALYTICS  := $(BUILD_DIR)/js/autotrack.js
+
+default: build
+
+.PHONY: clean setup serve watch
 
 clean:
 	rm -rf node_modules
 	rm -rf .shadow-cljs
 	rm -rf .nrepl-port
-.PHONY: clean
+	rm -rf build
 
 setup:
 	yarn install
-.PHONY: setup
 
 serve:
 	npx shadow-cljs watch app
-.PHONY: serve
 
-######################################################
-## Building & deploying
-######################################################
+watch: $(TARGET_CSS_DEV)
+	npx chokidar $(CSS_FILES) -c "make css"
 
-.PHONY: build dist build-report stage-install install
+build: setup $(TARGET_JS) $(TARGET_CSS) $(TARGET_HTML) $(TARGET_ANALYTICS)
 
-release: setup
-	npx shadow-cljs release app
-.PHONY: release
+$(TARGET_JS): $(SRC_FILES)
+	@echo "---- Building cljs"
+	shadow-cljs release app
+
+$(TARGET_CSS): $(CSS_FILES) $(SRC_FILES)
+	@echo "---- Building css"
+	npx postcss $< -o $@
+
+$(TARGET_CSS_DEV): $(CSS_FILES)
+	npx postcss $< -o $@
+
+$(TARGET_HTML): resources/public/index.html
+	cat $^ | sed 's|autotrack.js|js/autotrack.js|'  > $@
+
+$(TARGET_ANALYTICS): resources/public/autotrack.js
+	cp $^ $@

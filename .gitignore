@@ -1,6 +1,7 @@
 node_modules/
-public/assets/js
-/dist
+resources/public/js
+resources/public/css
+/build
 
 pom.xml
 *.iml

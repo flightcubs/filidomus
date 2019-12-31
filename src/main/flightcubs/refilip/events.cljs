@@ -1,5 +1,5 @@
-(ns flightcubs.filidomus.events
-  (:require [flightcubs.filidomus.router :as router]
+(ns flightcubs.refilip.events
+  (:require [flightcubs.refilip.router :as router]
             [re-frame.core :as rf]))
 
 (def default-db

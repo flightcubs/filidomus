@@ -1,6 +1,6 @@
-(ns flightcubs.filidomus.router
-  (:require [flightcubs.filidomus.utils :refer [<sub >evt]]
-            [flightcubs.filidomus.views :as views]
+(ns flightcubs.refilip.router
+  (:require [flightcubs.refilip.utils :refer [<sub >evt]]
+            [flightcubs.refilip.views :as views]
             [reitit.core :as reitit]
             [reitit.frontend :as reitit-frontend]
             [reitit.frontend.easy :as reitit-frontend-easy]))

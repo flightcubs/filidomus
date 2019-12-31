@@ -1,4 +1,4 @@
-(ns flightcubs.filidomus.utils
+(ns flightcubs.refilip.utils
   (:require [re-frame.core :as rf]))
 
 ; Defining shorthands for re-frame subscribe/dispatch

@@ -39,7 +39,7 @@ serve:
 watch: $(TARGET_CSS_DEV)
 	npx chokidar $(CSS_FILES) -c "make $(TARGET_CSS_DEV)"
 
-build: setup $(TARGET_JS) $(TARGET_CSS) $(TARGET_IMG_FILES) $(TARGET_HTML) $(TARGET_ANALYTICS)
+build: setup $(TARGET_JS) $(TARGET_CSS) $(TARGET_IMG_FILES) $(TARGET_HTML) $(TARGET_ANALYTICS) $(TARGET_FAVICON)
 
 $(TARGET_JS): $(SRC_FILES)
 	@echo "---- Building cljs"

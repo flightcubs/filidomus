@@ -53,6 +53,9 @@
    :hello-world   {:name     "Hello, World!"
                    :date     "2019-11-29"
                    :markdown (rc/inline "./posts/hello-world.md")}
+   :growth-2020   {:name     "A year of growth"
+                   :date     "2020-01-01"
+                   :markdown (rc/inline "./posts/growth-2020.md")}
    })
 
 (defn posts-by-date [posts]

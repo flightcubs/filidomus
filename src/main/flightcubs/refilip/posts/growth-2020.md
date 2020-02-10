@@ -6,6 +6,7 @@
 This year long project is about self improvement and growth. The format is purposely designed to avoid being overwhelmed by learning too many things at once, and to force progress through planning and goal setting. 
 
 During the year, I’ll continuously post about each learning project, and you can read about each one here:
+
 1. January: TBD
 
 ## Format and philosophy
@@ -97,7 +98,8 @@ I’ve recently rediscovered how awesome books are - especially in these times o
 It’s fairly comfortable to learn about something. It’s harder to actually go through the process of learning it. I’ve come to realise that I mostly stay in my comfort zone of theory when I embark on a new learning venture. Golf is a prime example. After I started to golf, I read multiple books and watched countless hours of golf instruction videos online. I learned what to do. But I have spent a fraction of that time actually practicing and playing golf. Dare to guess how good I am at golf? Here’s a hint: not great.
 
 > Passive learning creates knowledge. Active practice creates skill.
-> - Scott Young, Ultralearning
+
+- Scott Young, Ultralearning
 
 So a major challenge during this year will be to actually practice and gain new skills, rather than just gain new knowledge.
 

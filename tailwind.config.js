@@ -1,6 +1,6 @@
 module.exports = {
   content:
-    process.env.RELEASE == "true"
+    process.env.NODE_ENV == "production"
       ? ["./resources/public/js/main.js"]
       : ["./resources/public/js/cljs-runtime/*.js"],
   theme: {

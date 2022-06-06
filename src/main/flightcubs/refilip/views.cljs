@@ -1,9 +1,11 @@
 (ns flightcubs.refilip.views
   (:require [flightcubs.refilip.utils :refer [<sub >evt]]
             [shadow.resource :as rc]
-            ["react-markdown/with-html" :as react-markdown]))
+            [reagent.core :as r]
+            ["react-markdown" :as ReactMarkdown]))
 
-(def media-folder "/media")
+(def markdown (r/adapt-react-class ReactMarkdown))
+
 (def github-repo "https://github.com/flightcubs/refilip")
 
 (defn logo-linkedin []
@@ -31,8 +33,7 @@
    [:div.flex-shrink-0.mr-2
     [logo]]
    [:div
-    [:a.text-lg.text-accent.font-mono.no-underline {:href link} link-text]]
-   ])
+    [:a.text-lg.text-accent.font-mono.no-underline {:href link} link-text]]])
 
 (defn home-page []
   [:div.container.max-w-xl.text-primary.leading-tight
@@ -43,11 +44,11 @@
     [contact-at logo-linkedin "https://linkedin.com/in/filiphedberg/" "linkedin.com/in/filiphedberg"]
     [contact-at logo-github "https://github.com/flightcubs" "github.com/flightcubs"]
     [contact-at logo-email "mailto:flightcubs@gmail.com" "flightcubs@gmail.com"]
-    [contact-at logo-twitter "https://twitter.com/flightcubs" "@flightcubs"]]
-   ])
+    [contact-at logo-twitter "https://twitter.com/flightcubs" "@flightcubs"]]])
 
 (def posts
   {:test-markdown {:name     "Markdown test"
+                   :hidden?  true
                    :date     "2119-12-29"
                    :markdown (rc/inline "./posts/test-markdown.md")}
    :hello-world   {:name     "Hello, World!"
@@ -56,33 +57,35 @@
    :growth-2020   {:name     "A year of growth"
                    :date     "2020-01-01"
                    :markdown (rc/inline "./posts/growth-2020.md")}
-   })
+   :hello-again   {:name     "Hello again, World!"
+                   :date     "2022-06-06"
+                   :markdown (rc/inline "./posts/hello-again.md")}})
 
 (defn posts-by-date [posts]
-  (sort-by (fn [[slug post]] (:date post)) posts))
+  (reverse (sort-by (fn [[_slug post]] (:date post)) posts)))
 
 (defn future-date? [iso-date]
   (> (.parse js/Date iso-date) (.now js/Date)))
 
-(defn show-post [[slug post]]
-  (not (future-date? (:date post))))
+(defn show-post [[_slug post]]
+  (and (not (future-date? (:date post))) (not (:hidden? post))))
 
 (defn blog-post-link [slug post]
   [:a.font-sans {:href (str "/#/blog/post/" (name slug))}
-   (str (:date post) " - " (:name post))])
+   (str (:date post) ": " (:name post))])
 
 (defn blog []
   [:div
-   [:h1.font-sans.text-3xl "Blog"]
-   (for [[slug post] (->> posts posts-by-date (filter show-post))]
-     [:div {:key slug}
-      [blog-post-link slug post]])])
+   [:h1.font-sans.text-3xl.text-primary "Blog"]
+   [:div.mt-4.space-y-2 (for [[slug post] (->> posts (filter show-post) posts-by-date)]
+                          [:div {:key slug}
+                           [blog-post-link slug post]])]])
 
 (defn blog-post []
   (let [post (->> (<sub [:path-params]) :slug keyword (get posts)) content (:markdown post) date (:date post)]
     [:div.markdown.max-w-2xl.mx-auto.mb-24
      [:p.font-mono.text-primary.opacity-50 date]
-     [:> react-markdown content]]))
+     [markdown content]]))
 
 (defn header-icon []
   [:div.flex.items-center.flex-shrink-0.text-white.mr-6.h-12
@@ -96,7 +99,7 @@
       [:path {:d "M5.70898 23.4688C5.70898 24.2526 5.72721 24.763 5.76367 25H2.35938V10.7129H5.70898V11.7656C6.48372 10.8815 7.29492 10.4395 8.14258 10.4395C8.99935 10.4395 9.67383 10.5443 10.166 10.7539L9.91992 14.4316L9.86523 14.4727C9.54622 13.9076 8.88542 13.625 7.88281 13.625C7.5 13.625 7.10807 13.7572 6.70703 14.0215C6.3151 14.2767 5.98242 14.6185 5.70898 15.0469V23.4688ZM11.1504 17.9727C11.1504 16.9062 11.3327 15.9173 11.6973 15.0059C12.0618 14.0944 12.5768 13.2969 13.2422 12.6133C14.6641 11.1641 16.5234 10.4395 18.8203 10.4395C20.7617 10.4395 22.3203 11.082 23.4961 12.3672C24.6536 13.6068 25.2324 15.1654 25.2324 17.043C25.2324 17.763 25.1777 18.2552 25.0684 18.5195C24.1569 18.7747 22.3021 18.9023 19.5039 18.9023H14.6914C14.9284 19.8776 15.4798 20.6387 16.3457 21.1855C17.2116 21.7233 18.3372 21.9922 19.7227 21.9922C21.1719 21.9922 22.416 21.7324 23.4551 21.2129C23.7285 21.0762 23.9336 20.9486 24.0703 20.8301C24.0521 21.2129 24.0293 21.6048 24.002 22.0059L23.8516 24.1387C23.1589 24.6126 22.0378 24.9408 20.4883 25.123C20.0326 25.1777 19.5951 25.2051 19.1758 25.2051C16.8607 25.2051 14.9466 24.5306 13.4336 23.1816C11.9115 21.8236 11.1504 20.0872 11.1504 17.9727ZM21.5957 16.25C21.222 14.2904 20.1556 13.3105 18.3965 13.3105C17.0111 13.3105 15.9583 13.9076 15.2383 15.1016C15.0195 15.4661 14.8509 15.8672 14.7324 16.3047C14.9512 16.3138 15.2201 16.3229 15.5391 16.332H16.5508C16.888 16.3411 17.2116 16.3457 17.5215 16.3457H18.3008C18.7656 16.3457 19.2214 16.3411 19.668 16.332L20.7891 16.291C21.0898 16.2819 21.3587 16.2682 21.5957 16.25ZM31.6172 14.4727C31.6172 14.6458 31.6172 14.974 31.6172 15.457C31.6172 15.931 31.64 16.332 31.6855 16.6602H27.6934C27.7754 16.1042 27.8164 15.612 27.8164 15.1836C27.8164 14.7552 27.8118 14.4635 27.8027 14.3086C27.8027 14.1445 27.7982 13.985 27.7891 13.8301C27.7799 13.6751 27.7708 13.5293 27.7617 13.3926L27.7207 13.0508H31.6855C31.6582 13.3971 31.6445 13.6797 31.6445 13.8984L31.6172 14.4727ZM31.6172 22.8125C31.6172 22.9857 31.6172 23.3138 31.6172 23.7969C31.6172 24.2708 31.64 24.6719 31.6855 25H27.6934C27.7754 24.444 27.8164 23.9518 27.8164 23.5234C27.8164 23.0951 27.8118 22.8034 27.8027 22.6484C27.8027 22.4844 27.7982 22.3249 27.7891 22.1699C27.7799 22.015 27.7708 21.8691 27.7617 21.7324L27.7207 21.3906H31.6855C31.6582 21.737 31.6445 22.0195 31.6445 22.2383L31.6172 22.8125ZM42.0078 12.2852C41.9349 12.5495 41.8984 13.2148 41.8984 14.2812V15.4844H38.6035V25H35.2539V15.4844H33.2441C33.2533 14.8828 33.2624 14.3496 33.2715 13.8848L33.2988 12.4219V12.2852H35.2539V11.4375C35.2539 9.25 35.7643 7.49089 36.7852 6.16016C37.8516 4.78385 39.319 4.0957 41.1875 4.0957C41.9805 4.0957 42.5046 4.15039 42.7598 4.25977L42.7734 7.69141L42.7461 7.75977C42.3997 7.41341 41.9577 7.24023 41.4199 7.24023C40.8913 7.24023 40.4629 7.33138 40.1348 7.51367C39.8066 7.68685 39.5286 7.9375 39.3008 8.26562C38.8359 8.92188 38.6035 9.81966 38.6035 10.959V12.2852H42.0078Z" :fill "#2A3947"}]
       [:path {:d "M42 24.8796C42.6981 23.7888 43.4267 22.829 44.1859 22L47 24.212C46.6248 24.6745 46.2757 25.1283 45.9529 25.5733C45.9529 25.5733 45.6169 26.0489 44.945 27L42 24.8796Z" :fill "#DC8C89"}]]]]])
 
-(defn minimize-menu [e]
+(defn minimize-menu [_e]
   (>evt [:toggle-menu-to false]))
 
 (defn header-menu-btn []
@@ -123,6 +126,5 @@
      [header]
      [:div.w-full.mx-auto.px-6.pt-20
       (when current-route
-        [(-> current-route :data :view)])]
-     ]))
+        [(-> current-route :data :view)])]]))
 

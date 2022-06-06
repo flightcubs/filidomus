@@ -4,7 +4,7 @@
             [flightcubs.refilip.subs :as subs]
             [flightcubs.refilip.utils :as utils]
             [flightcubs.refilip.router :as router]
-            [reagent.core :as reagent]
+            [reagent.dom :as rdom]
             [re-frame.core :as rf]))
 
 (def dom-root (js/document.getElementById "app"))
@@ -13,7 +13,7 @@
   (.log js/console "mounting app")
   (rf/clear-subscription-cache!)
   (router/start!)
-  (reagent/render [views/main-view] dom-root))
+  (rdom/render [views/main-view] dom-root))
 
 (defn ^:export init
   "Initializes the app. Called from index.html with init()"

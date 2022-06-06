@@ -1,7 +1,7 @@
 module.exports = {
   content:
     process.env.NODE_ENV == "production"
-      ? ["./resources/public/js/main.js"]
+      ? ["./build/js/main.js"]
       : ["./resources/public/js/cljs-runtime/*.js"],
   theme: {
     extend: {

@@ -1,6 +1,7 @@
 (ns flightcubs.refilip.router
   (:require [flightcubs.refilip.utils :refer [>evt]]
             [flightcubs.refilip.views :as views]
+            [flightcubs.refilip.blog :as blog]
             [reitit.core :as reitit]
             [reitit.frontend :as reitit-frontend]
             [reitit.frontend.easy :as reitit-frontend-easy]))
@@ -14,11 +15,11 @@
    ["blog"
     [""
      {:name      ::blog
-      :view      views/blog
+      :view      blog/blog
       :link-text "Home"}]
     ["/post/:slug"
      {:name      ::blog-post
-      :view      views/blog-post
+      :view      blog/blog-post
       :link-text "Home"}]]])
 
 (def router

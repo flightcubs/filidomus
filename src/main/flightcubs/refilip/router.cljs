@@ -1,5 +1,5 @@
 (ns flightcubs.refilip.router
-  (:require [flightcubs.refilip.utils :refer [<sub >evt]]
+  (:require [flightcubs.refilip.utils :refer [>evt]]
             [flightcubs.refilip.views :as views]
             [reitit.core :as reitit]
             [reitit.frontend :as reitit-frontend]
@@ -10,8 +10,7 @@
    [""
     {:name      ::home
      :view      views/home-page
-     :link-text "Home"}
-    ]
+     :link-text "Home"}]
    ["blog"
     [""
      {:name      ::blog
@@ -20,10 +19,7 @@
     ["/post/:slug"
      {:name      ::blog-post
       :view      views/blog-post
-      :link-text "Home"}
-     ]
-    ]
-   ])
+      :link-text "Home"}]]])
 
 (def router
   (reitit-frontend/router routes))
@@ -34,9 +30,9 @@
 
 (defn start! []
   (reitit-frontend-easy/start!
-    router
-    on-navigate
-    {:use-fragment true}))
+   router
+   on-navigate
+   {:use-fragment true}))
 
 (defn push-state! [route]
   (apply reitit-frontend-easy/push-state route))

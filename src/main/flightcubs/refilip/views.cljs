@@ -127,4 +127,3 @@
      [:div.w-full.mx-auto.px-6.pt-20
       (when current-route
         [(-> current-route :data :view)])]]))
-

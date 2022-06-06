@@ -5,13 +5,12 @@ html {
 }
 
 body {
-  @apply text-gray-900 leading-normal;
+  @apply text-red-900 leading-normal;
 }
 
 a {
   @apply text-accent underline;
 }
-
 
 .markdown {
   @apply text-primary;
@@ -24,7 +23,11 @@ a {
     @apply font-serif text-xl;
   }
 
-  & h1, & h2, & h3, & h4, & h5 {
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5 {
     @apply font-sans;
   }
 
@@ -41,7 +44,7 @@ a {
   }
 
   & a {
-    @apply text-accent underline
+    @apply text-accent underline;
   }
 
   & ul {
@@ -57,15 +60,15 @@ a {
     position: relative;
     font-style: italic;
     @apply text-accent text-3xl;
-     & :before {
-          content: '\201C';
-          position: absolute;
-          top: -0.45em;
-          left: -0.15em;
-          font-size: 10em;
-          z-index: -1;
-          opacity: 0.1;
-       }
+    & :before {
+      content: "\201C";
+      position: absolute;
+      top: -0.45em;
+      left: -0.15em;
+      font-size: 10em;
+      z-index: -1;
+      opacity: 0.1;
+    }
   }
 }
 
